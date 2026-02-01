@@ -39,5 +39,21 @@ namespace HRIS_Employee.API.Repositories
 
             return await query.FirstOrDefaultAsync(e => e.EntraObjectId == entraObjectId);
         }
+
+        public async Task<bool> AddEmployee(Employee employee)
+        {
+            dbContext.Employees.Add(employee);
+            return await dbContext.SaveChangesAsync() > 0;
+        }
+
+        public async Task<string?> GetLastEmployeeNumber()
+        {
+            var lastEmployeeNumber = await dbContext.Employees
+                .OrderByDescending(e => e.EmployeeNumber)
+                .Select(e => e.EmployeeNumber)
+                .FirstOrDefaultAsync();
+
+            return lastEmployeeNumber;
+        }
     }
 }

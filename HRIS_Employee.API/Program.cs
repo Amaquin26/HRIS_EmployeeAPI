@@ -1,4 +1,5 @@
 using HRIS_Employee.API.External.Graph;
+using HRIS_Employee.API.Middlewares;
 using HRIS_Employee.API.Repositories;
 using HRIS_Employee.API.Services;
 using HRIS_Employee.Infrastructure.Persistence.DBContext;
@@ -47,6 +48,8 @@ builder.Services.AddAuthorization();
 builder.Services.Configure<AzureAdSettings>(builder.Configuration.GetSection("AzureAd"));
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
+builder.Services.AddScoped<IEmployeeStatusRepository, EmployeeStatusRepository>();
+builder.Services.AddScoped<IEmployeeStatusService, EmployeeStatusService>();
 builder.Services.AddScoped<IGraphService, GraphService>();
 
 var app = builder.Build();
@@ -58,6 +61,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseCors("CorsPolicy");
+
+app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
 

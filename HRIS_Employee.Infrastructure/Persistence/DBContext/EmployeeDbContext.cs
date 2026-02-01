@@ -19,6 +19,9 @@ namespace HRIS_Employee.Infrastructure.Persistence.DBContext
                 entity.HasIndex(p => p.EntraObjectId)
                       .IsUnique();
 
+                entity.HasIndex(p => p.EmployeeNumber)
+                      .IsUnique();
+
                 entity.HasOne(e => e.EmployeeStatus)
                       .WithMany(es => es.Employees)
                       .HasForeignKey(e => e.EmployeeStatusId)

@@ -10,5 +10,9 @@ namespace HRIS_Employee.API.Repositories
         Task<Employee?> GetSingleByIdAsync(int id, Expression<Func<Employee, bool>>? predicate = null);
 
         Task<Employee?> GetSingleByEntraObjectIdAsync(string entraObjectId, Expression<Func<Employee, bool>>? predicate = null);
+
+        Task<bool> AddEmployee(Employee employee);
+
+        Task<string?> GetLastEmployeeNumber();
     }
 }

@@ -1,7 +1,7 @@
 ﻿using HRIS_Employee.API.DTOs;
 using HRIS_Employee.API.External.Graph;
 using HRIS_Employee.API.Services;
-using Microsoft.AspNetCore.Http;
+using HRIS_Employee.Infrastructure.Persistence.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRIS_Employee.API.Controllers
@@ -38,11 +38,11 @@ namespace HRIS_Employee.API.Controllers
         }
 
         [HttpGet("graph")]
-        public async Task<IActionResult> GetGraphUser([FromBody] Payload payload)
+        public async Task<IActionResult> GetGraphUser([FromQuery] string UserPrincipalName)
         {
-            var graphUser = await graphService.GetUser(payload.UserPrincipalName);
+            var graphUser = await graphService.GetUser(UserPrincipalName);
             if (graphUser == null)
-                return NotFound($"No Graph user found with principal name: {payload.UserPrincipalName}");
+                return NotFound($"No Graph user found with principal name: {UserPrincipalName}");
 
             return Ok(graphUser);
         }
@@ -54,10 +54,12 @@ namespace HRIS_Employee.API.Controllers
 
             return Ok(graphUsers);
         }
-    }
-}
 
-public class Payload()
-{
-    public string UserPrincipalName { get; set; } = default!;
+        [HttpPost]
+        public async Task<IActionResult> AddEmployeeRecord([FromBody] WriteEmployeeDto employeeDto)
+        {
+            var employee = await employeeService.AddEmployeeRecord(employeeDto);
+            return Ok();
+        }
+    }
 }

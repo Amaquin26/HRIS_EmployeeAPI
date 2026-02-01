@@ -1,5 +1,4 @@
-﻿using Azure;
-using Azure.Identity;
+﻿using Azure.Identity;
 using HRIS_Employee.API.DTOs;
 using HRIS_Employee.Infrastructure.Persistence.Models;
 using Microsoft.Extensions.Options;
@@ -98,16 +97,16 @@ namespace HRIS_Employee.API.External.Graph
 
                     requestConfig.QueryParameters.Select = new[]
                     {
-                    "id",
-                    "displayName",
-                    "mail",
-                    "givenName",
-                    "surname",
-                    "userPrincipalName",
-                    "jobTitle",
-                    "mobilePhone",
-                    "officeLocation"
-                };
+                        "id",
+                        "displayName",
+                        "mail",
+                        "givenName",
+                        "surname",
+                        "userPrincipalName",
+                        "jobTitle",
+                        "mobilePhone",
+                        "officeLocation"
+                    };
 
                     requestConfig.QueryParameters.Top = pagination.PageSize;
                     requestConfig.QueryParameters.Count = true;

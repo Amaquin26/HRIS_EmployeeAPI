@@ -24,7 +24,7 @@ namespace HRIS_Employee.Infrastructure.Persistence.Models
         public string LastName { get; set; } = default!;
 
         [MaxLength(150)]
-        public string? Email { get; set; }
+        public string Email { get; set; } = default!;
 
         [MaxLength(15)]
         public string? ContactNumber { get; set; }
