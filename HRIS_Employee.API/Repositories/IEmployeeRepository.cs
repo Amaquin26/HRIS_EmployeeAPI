@@ -7,6 +7,8 @@ namespace HRIS_Employee.API.Repositories
     {
         Task<List<Employee>> GetAllAsync(Expression<Func<Employee, bool>>? predicate = null);
 
+        Task<(List<Employee>, int)> GetAllPaginatedAsync(int pageSize = 10, int pageNumber = 1, string? searchTerm = "");
+
         Task<Employee?> GetSingleByIdAsync(int id, Expression<Func<Employee, bool>>? predicate = null);
 
         Task<Employee?> GetSingleByEntraObjectIdAsync(string entraObjectId, Expression<Func<Employee, bool>>? predicate = null);
