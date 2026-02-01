@@ -17,6 +17,13 @@ namespace HRIS_Employee.API.Controllers
             return Ok(employees);
         }
 
+        [HttpGet("paginated/result")]
+        public async Task<IActionResult> GetAllEmployeesPaginated([FromQuery] PaginationQueryDto paginationQuery)
+        {
+            var result = await employeeService.GetAllEmployeesPaginated(paginationQuery);
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetEmployeeById(int id)
         {

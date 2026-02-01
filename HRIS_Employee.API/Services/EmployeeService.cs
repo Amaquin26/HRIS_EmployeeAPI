@@ -32,6 +32,41 @@ namespace HRIS_Employee.API.Services
             return employeeDtos;
         }
 
+        public async Task<PaginatedItemsDto<EmployeeDto>> GetAllEmployeesPaginated(PaginationQueryDto paginationQuery)
+        {
+            var result = await employeeRepository.GetAllPaginatedAsync(paginationQuery.PageSize, paginationQuery.PageNumber, paginationQuery.SearchTerm);
+
+            var employees = result.Item1;
+            var totalRecords = result.Item2;
+
+            var employeeDtos = new List<EmployeeDto>();
+
+            foreach (var employee in employees)
+            {
+                employeeDtos.Add(new EmployeeDto
+                {
+                    Id = employee.Id,
+                    EntraObjectId = employee.EntraObjectId,
+                    EmployeeNumber = employee.EmployeeNumber,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Email = employee.Email,
+                    ContactNumber = employee.ContactNumber,
+                    EmployeeStatusId = employee.EmployeeStatusId,
+                    EmployeeStatusName = employee.EmployeeStatus.Name,
+                    HireDate = employee.HireDate
+                });
+            }
+
+            var paginatedItems = new PaginatedItemsDto<EmployeeDto>
+            {
+                Items = employeeDtos,
+                TotalRecords = totalRecords
+            };
+
+            return paginatedItems;
+        }
+
         public async Task<EmployeeDto?> GetEmployeeByEntraObjectIdAsync(string entraObjectId)
         {
             var employee = await employeeRepository.GetSingleByEntraObjectIdAsync(entraObjectId);

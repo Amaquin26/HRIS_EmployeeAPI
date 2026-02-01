@@ -16,6 +16,35 @@ namespace HRIS_Employee.API.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<(List<Employee>, int)> GetAllPaginatedAsync(int pageSize = 10, int pageNumber = 1, string? searchTerm = "")
+        {
+            IQueryable<Employee> query = dbContext.Employees;
+
+            query = query.Include(e => e.EmployeeStatus);
+
+            if (!string.IsNullOrEmpty(searchTerm))
+            {
+                string pattern = $"%{searchTerm}%";
+                query = query.Where(e =>
+                    EF.Functions.Like(e.FirstName, pattern) ||
+                    EF.Functions.Like(e.LastName, pattern) ||
+                    EF.Functions.Like(e.Email, pattern) ||
+                    EF.Functions.Like(e.EmployeeNumber, pattern)
+                );
+            }
+
+            int totalRecords = await query.CountAsync();
+
+            query = query
+            .OrderBy(e => e.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize);
+
+            var employees = await query.ToListAsync();
+
+            return (employees, totalRecords);
+        }
+
         public async Task<Employee?> GetSingleByIdAsync(int id, Expression<Func<Employee, bool>>? predicate = null)
         {
             IQueryable<Employee> query = dbContext.Employees;
