@@ -3,7 +3,6 @@ using HRIS_Employee.API.Repositories;
 using HRIS_Employee.Infrastructure.Constants;
 using HRIS_Employee.Infrastructure.Exceptions;
 using HRIS_Employee.Infrastructure.Persistence.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace HRIS_Employee.API.Services
 {
@@ -78,12 +77,14 @@ namespace HRIS_Employee.API.Services
             {
                 Id = employee.Id,
                 EntraObjectId = employee.EntraObjectId,
+                EmployeeNumber = employee.EmployeeNumber,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
                 Email = employee.Email,
                 ContactNumber = employee.ContactNumber,
                 EmployeeStatusId = employee.EmployeeStatusId,
-                EmployeeStatusName = employee.EmployeeStatus.Name
+                EmployeeStatusName = employee.EmployeeStatus.Name,
+                HireDate = employee.HireDate
             };
         }
 
@@ -98,12 +99,14 @@ namespace HRIS_Employee.API.Services
             {
                 Id = employee.Id,
                 EntraObjectId = employee.EntraObjectId,
+                EmployeeNumber = employee.EmployeeNumber,
                 FirstName = employee.FirstName,
                 LastName = employee.LastName,
                 Email = employee.Email,
                 ContactNumber = employee.ContactNumber,
                 EmployeeStatusId = employee.EmployeeStatusId,
-                EmployeeStatusName = employee.EmployeeStatus.Name
+                EmployeeStatusName = employee.EmployeeStatus.Name,
+                HireDate = employee.HireDate
             };
         }
 

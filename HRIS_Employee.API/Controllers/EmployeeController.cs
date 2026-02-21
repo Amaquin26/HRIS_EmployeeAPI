@@ -29,7 +29,12 @@ namespace HRIS_Employee.API.Controllers
         {
             var employee = await employeeService.GetEmployeeByIdAsync(id);
             if (employee == null)
-                return NotFound($"No Employee found with ID: {id}");
+                return NotFound(new ProblemDetails()
+                {
+                    Status = StatusCodes.Status404NotFound,
+                    Title = "Not Found",
+                    Detail = $"No Employee found with ID: {id}"
+                });
 
             return Ok(employee);
         }
