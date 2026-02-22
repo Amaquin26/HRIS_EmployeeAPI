@@ -50,6 +50,7 @@ builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeStatusRepository, EmployeeStatusRepository>();
 builder.Services.AddScoped<IEmployeeStatusService, EmployeeStatusService>();
+builder.Services.AddScoped<IAuthUserDetailsService, AuthUserDetailsService>();
 builder.Services.AddScoped<IGraphService, GraphService>();
 
 var app = builder.Build();
@@ -65,6 +66,8 @@ app.UseCors("CorsPolicy");
 app.UseGlobalExceptionHandler();
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

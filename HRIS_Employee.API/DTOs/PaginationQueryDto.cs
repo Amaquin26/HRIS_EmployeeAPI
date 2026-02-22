@@ -1,6 +1,6 @@
 ﻿namespace HRIS_Employee.API.DTOs
 {
-    public class PaginationQueryDto
+    public record PaginationQueryDto
     {
         public int PageNumber { get; set; } = 1;
 

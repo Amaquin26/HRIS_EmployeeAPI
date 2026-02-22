@@ -1,6 +1,6 @@
 ﻿namespace HRIS_Employee.API.DTOs
 {
-    public class WriteEmployeeDto
+    public record WriteEmployeeDto
     {
         public string EntraObjectId { get; set; } = default!;
 

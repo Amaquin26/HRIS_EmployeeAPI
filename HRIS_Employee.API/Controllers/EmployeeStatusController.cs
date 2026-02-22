@@ -1,6 +1,7 @@
 ﻿using HRIS_Employee.API.Services;
-using Microsoft.AspNetCore.Http;
+using HRIS_Employee.Infrastructure.Constants;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Identity.Web.Resource;
 
 namespace HRIS_Employee.API.Controllers
 {
@@ -9,6 +10,7 @@ namespace HRIS_Employee.API.Controllers
     public class EmployeeStatusController(IEmployeeStatusService employeeStatusService) : ControllerBase
     {
         [HttpGet]
+        [RequiredScope(ApiScopeConstants.EmployeesRead)]
         public async Task<IActionResult> GetEmployeeStatus()
         {
             var employeeStatuses = await employeeStatusService.GetAllEmployeeStatus();

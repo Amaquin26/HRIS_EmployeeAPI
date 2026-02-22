@@ -1,6 +1,6 @@
 ﻿namespace HRIS_Employee.API.DTOs
 {
-    public class EmployeeDto
+    public record EmployeeDto
     {
         public int Id { get; set; }
 
