@@ -1,7 +1,12 @@
 using HRIS_Employee.API.External.Graph;
 using HRIS_Employee.API.Middlewares;
 using HRIS_Employee.API.Repositories;
+using HRIS_Employee.API.Repositories.Base;
+using HRIS_Employee.API.Repositories.Employee;
+using HRIS_Employee.API.Repositories.Schedule;
 using HRIS_Employee.API.Services;
+using HRIS_Employee.API.Services.Schedule;
+using HRIS_Employee.API.Services.UnitOfWork;
 using HRIS_Employee.Infrastructure.Persistence.DBContext;
 using HRIS_Employee.Infrastructure.Persistence.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -51,7 +56,11 @@ builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeStatusRepository, EmployeeStatusRepository>();
 builder.Services.AddScoped<IEmployeeStatusService, EmployeeStatusService>();
 builder.Services.AddScoped<IAuthUserDetailsService, AuthUserDetailsService>();
+builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IGraphService, GraphService>();
+builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

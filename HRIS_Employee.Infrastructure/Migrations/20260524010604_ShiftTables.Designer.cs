@@ -3,6 +3,7 @@ using System;
 using HRIS_Employee.Infrastructure.Persistence.DBContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HRIS_Employee.Infrastructure.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    partial class EmployeeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260524010604_ShiftTables")]
+    partial class ShiftTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,11 +71,10 @@ namespace HRIS_Employee.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<int>("ScheduleId")
+                    b.Property<int?>("ScheduleId")
                         .HasColumnType("integer");
 
                     b.Property<string>("TimeZone")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset?>("UpdatedAt")
@@ -141,14 +143,14 @@ namespace HRIS_Employee.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("CrossesMidnight")
-                        .HasColumnType("boolean");
-
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("integer");
 
-                    b.Property<TimeOnly?>("EndTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<int>("EndDayOffset")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("EndTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsRestDay")
                         .HasColumnType("boolean");
@@ -156,8 +158,8 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<int>("ScheduleId")
                         .HasColumnType("integer");
 
-                    b.Property<TimeOnly?>("StartTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -180,8 +182,8 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<int>("EndDayOffset")
                         .HasColumnType("integer");
 
-                    b.Property<TimeOnly?>("EndTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<DateTimeOffset>("EndTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsRestDay")
                         .HasColumnType("boolean");
@@ -195,8 +197,8 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<DateOnly>("SpecificDate")
                         .HasColumnType("date");
 
-                    b.Property<TimeOnly?>("StartTime")
-                        .HasColumnType("time without time zone");
+                    b.Property<DateTimeOffset>("StartTime")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -299,8 +301,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.HasOne("HRIS_Employee.Infrastructure.Persistence.Models.Schedule", "Schedule")
                         .WithMany("Employees")
                         .HasForeignKey("ScheduleId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("EmployeeStatus");
 

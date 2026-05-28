@@ -7,7 +7,6 @@ namespace HRIS_Employee.Infrastructure.Persistence.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string Name { get; set; } = default!;
 

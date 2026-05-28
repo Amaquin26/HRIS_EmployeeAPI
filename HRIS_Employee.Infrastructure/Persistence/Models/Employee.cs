@@ -7,19 +7,15 @@ namespace HRIS_Employee.Infrastructure.Persistence.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
         [MaxLength(100)]
         public string EntraObjectId { get; set; } = default!;
 
-        [Required]
         [MaxLength(50)]
         public string EmployeeNumber { get; set; } = default!;
 
-        [Required]
         [MaxLength(100)]
         public string FirstName { get; set; } = default!;
 
-        [Required]
         [MaxLength(100)]
         public string LastName { get; set; } = default!;
 
@@ -29,16 +25,24 @@ namespace HRIS_Employee.Infrastructure.Persistence.Models
         [MaxLength(15)]
         public string? ContactNumber { get; set; }
 
-        [Required]
         public int EmployeeStatusId { get; set; }
 
-        [Required]
-        public DateTime HireDate { get; set; }
+        public int ScheduleId { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTimeOffset HireDate { get; set; }
 
-        public DateTime? UpdatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+
+        public DateTimeOffset? UpdatedAt { get; set; }
+
+        public string TimeZone { get; set; } = null!;
 
         public EmployeeStatus EmployeeStatus { get; set; } = default!;
+
+        public Schedule Schedule { get; set; } = default!;
+
+        public ICollection<ShiftRecord> ShiftRecords { get; set; } = new List<ShiftRecord>();
+
+        public ICollection<ShiftAdjustment> ShiftAdjustments { get; set; } = new List<ShiftAdjustment>();
     }
 }

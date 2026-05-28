@@ -1,16 +1,18 @@
 ﻿using HRIS_Employee.API.DTOs;
-using HRIS_Employee.API.Repositories;
+using HRIS_Employee.API.Repositories.Employee;
+using HRIS_Employee.API.Services.UnitOfWork;
 using HRIS_Employee.Infrastructure.Constants;
 using HRIS_Employee.Infrastructure.Exceptions;
 using HRIS_Employee.Infrastructure.Persistence.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRIS_Employee.API.Services
 {
-    public class EmployeeService(IEmployeeRepository employeeRepository) : IEmployeeService
+    public class EmployeeService(IEmployeeRepository employeeRepository, IUnitOfWork unitOfWork) : IEmployeeService
     {
         public async Task<IEnumerable<EmployeeDto>> GetAllEmployeesAsync()
         {
-            var employees = await employeeRepository.GetAllAsync();
+            var employees = await employeeRepository.GetAllAsync(null, query => query.Include(e => e.EmployeeStatus));
             var employeeDtos = new List<EmployeeDto>();
 
             foreach (var employee in employees)
@@ -90,7 +92,7 @@ namespace HRIS_Employee.API.Services
 
         public async Task<EmployeeDto?> GetEmployeeByIdAsync(int id)
         {
-            var employee = await employeeRepository.GetSingleByIdAsync(id);
+            var employee = await employeeRepository.GetSingleAsync(x => x.Id == id, query => query.Include(x => x.EmployeeStatus));
 
             if (employee == null)
                 return null;
@@ -130,15 +132,13 @@ namespace HRIS_Employee.API.Services
                     ContactNumber = employeeDto.ContactNumber,
                     EmployeeStatusId = employeeDto.EmployeeStatusId,
                     HireDate = employeeDto.HireDate,
-                    EmployeeNumber = employeeNumber
+                    EmployeeNumber = employeeNumber,
+                    Schedule = new Infrastructure.Persistence.Models.Schedule(),
+                    TimeZone = TimeZoneInfo.Utc.Id // TODO: Get actual timezone from request user profile
                 };
 
-                var result = await employeeRepository.AddEmployee(employee);
-
-                if (!result)
-                {
-                    throw new ConflictException("Failed to add the new employee record.");
-                }
+                await employeeRepository.AddAsync(employee);
+                await unitOfWork.SaveChangesAsync();
 
                 return employee;
             }
