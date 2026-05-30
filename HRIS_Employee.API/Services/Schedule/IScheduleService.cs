@@ -8,5 +8,7 @@ namespace HRIS_Employee.API.Services.Schedule
         Task<EmployeeScheduleDto> GetEmployeeSchedule(int employeeId);
 
         Task<List<ScheduleDayDto>> AddScheduleDays(int employeeId, AddScheduleDaysDto addScheduleDays);
+
+        Task<List<ScheduleDayDto>> EditScheduleDays(int employeeId, List<ScheduleDayWriteDto> scheduleDays);
     }
 }

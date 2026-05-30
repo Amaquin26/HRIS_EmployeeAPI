@@ -27,5 +27,13 @@ namespace HRIS_Employee.API.Controllers
             var scheduleDays = await scheduleService.AddScheduleDays(employeeId, addScheduleDaysDto);
             return Ok(scheduleDays);
         }
+
+        [HttpPut("{employeeId:int}/schedule-days")]
+        [RequiredScope(ApiScopeConstants.EmployeesWrite)]
+        public async Task<IActionResult> EditScheduleDays(int employeeId, [FromBody] List<ScheduleDayWriteDto> scheduleDays)
+        {
+            var result = await scheduleService.EditScheduleDays(employeeId, scheduleDays);
+            return Ok(result);
+        }
     }
 }
