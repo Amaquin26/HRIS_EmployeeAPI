@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HRIS_Employee.Infrastructure.Migrations
 {
     [DbContext(typeof(EmployeeDbContext))]
-    [Migration("20260524011437_RequirdEmployeeSchedule")]
-    partial class RequirdEmployeeSchedule
+    [Migration("20260606183743_ShiftRecordMinorChanges")]
+    partial class ShiftRecordMinorChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -144,14 +144,14 @@ namespace HRIS_Employee.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<bool>("CrossesMidnight")
+                        .HasColumnType("boolean");
+
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EndDayOffset")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTimeOffset>("EndTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<TimeOnly?>("EndTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<bool>("IsRestDay")
                         .HasColumnType("boolean");
@@ -159,8 +159,8 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<int>("ScheduleId")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<TimeOnly?>("StartTime")
+                        .HasColumnType("time without time zone");
 
                     b.HasKey("Id");
 
@@ -183,8 +183,8 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<int>("EndDayOffset")
                         .HasColumnType("integer");
 
-                    b.Property<DateTimeOffset>("EndTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<TimeOnly?>("EndTime")
+                        .HasColumnType("time without time zone");
 
                     b.Property<bool>("IsRestDay")
                         .HasColumnType("boolean");
@@ -198,8 +198,8 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<DateOnly>("SpecificDate")
                         .HasColumnType("date");
 
-                    b.Property<DateTimeOffset>("StartTime")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<TimeOnly?>("StartTime")
+                        .HasColumnType("time without time zone");
 
                     b.HasKey("Id");
 
@@ -260,7 +260,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("ClockIn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTimeOffset>("ClockOut")
+                    b.Property<DateTimeOffset?>("ClockOut")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -272,7 +272,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<string>("FlagReason")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsFlag")
+                    b.Property<bool>("IsFlagged")
                         .HasColumnType("boolean");
 
                     b.Property<DateOnly>("ShiftDate")

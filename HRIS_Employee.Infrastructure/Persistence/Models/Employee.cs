@@ -29,7 +29,7 @@ namespace HRIS_Employee.Infrastructure.Persistence.Models
 
         public int ScheduleId { get; set; }
 
-        public DateTimeOffset HireDate { get; set; }
+        public DateTimeOffset HiredDate { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
 

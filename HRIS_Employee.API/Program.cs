@@ -61,6 +61,8 @@ builder.Services.AddScoped<IGraphService, GraphService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IScheduleDayRepository, ScheduleDayRepository>();
+builder.Services.AddScoped<IShiftRecordRepository, ShiftRecordRepository>();
+builder.Services.AddScoped<IShiftRecordService, ShiftRecordService>();
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 

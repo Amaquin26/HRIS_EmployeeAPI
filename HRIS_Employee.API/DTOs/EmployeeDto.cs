@@ -20,6 +20,6 @@
 
         public string EmployeeStatusName { get; set; } = default!;
 
-        public DateTimeOffset HireDate { get; set; }
+        public DateTimeOffset HiredDate { get; set; }
     }
 }

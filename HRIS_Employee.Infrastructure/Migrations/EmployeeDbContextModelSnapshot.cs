@@ -60,7 +60,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTimeOffset>("HireDate")
+                    b.Property<DateTimeOffset>("HiredDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("LastName")
@@ -257,7 +257,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<DateTimeOffset>("ClockIn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<DateTimeOffset>("ClockOut")
+                    b.Property<DateTimeOffset?>("ClockOut")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -269,7 +269,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                     b.Property<string>("FlagReason")
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsFlag")
+                    b.Property<bool>("IsFlagged")
                         .HasColumnType("boolean");
 
                     b.Property<DateOnly>("ShiftDate")

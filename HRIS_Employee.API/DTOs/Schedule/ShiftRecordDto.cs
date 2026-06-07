@@ -1,31 +1,17 @@
 ﻿using HRIS_Employee.Infrastructure.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
 
-namespace HRIS_Employee.Infrastructure.Persistence.Models
+namespace HRIS_Employee.API.DTOs.Schedule
 {
-    public class ShiftRecord
+    public record ShiftRecordDto
     {
-        [Key]
         public int Id { get; set; }
-
         public int EmployeeId { get; set; }
-
         public DateOnly ShiftDate { get; set; }
-
         public DateTimeOffset ClockIn { get; set; }
-
         public DateTimeOffset? ClockOut { get; set; }
-
         public ShiftStatus Status { get; set; }
-
-        public bool IsFlagged { get; set; } = false;
-
+        public bool IsFlagged { get; set; }
         public string? FlagReason { get; set; }
-
         public DateTimeOffset CreatedAt { get; set; }
-
-        public Employee Employee { get; set; } = default!;
-
-        public ICollection<ShiftAdjustment> ShiftAdjustments { get; set; } = new List<ShiftAdjustment>();
     }
 }

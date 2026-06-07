@@ -63,7 +63,7 @@ namespace HRIS_Employee.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
-                    b.Property<DateTimeOffset>("HireDate")
+                    b.Property<DateTimeOffset>("HiredDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("LastName")

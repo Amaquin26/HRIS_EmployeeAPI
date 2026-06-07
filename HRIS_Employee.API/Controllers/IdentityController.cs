@@ -1,22 +1,18 @@
 ﻿using HRIS_Employee.API.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace HRIS_Employee.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    public class IdentityController(IAuthUserDetailsService authUserDetailsService) : ControllerBase
+    public class IdentityController(IAuthUserDetailsService authUserDetailsService) : BaseController
     {
         [HttpGet("me")]
         public async Task<IActionResult> GetMyUserDetails()
         {
-            var userClaimsPrincipal = HttpContext.User;
-
-            var entraObjectId = User.FindFirstValue("http://schemas.microsoft.com/identity/claims/objectidentifier");
+            var entraObjectId = GetUserOID();
 
             if (string.IsNullOrEmpty(entraObjectId))
                 return Unauthorized("OID claim not found.");

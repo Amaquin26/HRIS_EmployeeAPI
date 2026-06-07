@@ -55,7 +55,7 @@ namespace HRIS_Employee.API.Services
                     ContactNumber = employee.ContactNumber,
                     EmployeeStatusId = employee.EmployeeStatusId,
                     EmployeeStatusName = employee.EmployeeStatus.Name,
-                    HireDate = employee.HireDate
+                    HiredDate = employee.HiredDate
                 });
             }
 
@@ -86,7 +86,7 @@ namespace HRIS_Employee.API.Services
                 ContactNumber = employee.ContactNumber,
                 EmployeeStatusId = employee.EmployeeStatusId,
                 EmployeeStatusName = employee.EmployeeStatus.Name,
-                HireDate = employee.HireDate
+                HiredDate = employee.HiredDate
             };
         }
 
@@ -108,7 +108,7 @@ namespace HRIS_Employee.API.Services
                 ContactNumber = employee.ContactNumber,
                 EmployeeStatusId = employee.EmployeeStatusId,
                 EmployeeStatusName = employee.EmployeeStatus.Name,
-                HireDate = employee.HireDate
+                HiredDate = employee.HiredDate
             };
         }
 
@@ -131,7 +131,7 @@ namespace HRIS_Employee.API.Services
                     Email = employeeDto.Email,
                     ContactNumber = employeeDto.ContactNumber,
                     EmployeeStatusId = employeeDto.EmployeeStatusId,
-                    HireDate = employeeDto.HireDate,
+                    HiredDate = employeeDto.HiredDate,
                     EmployeeNumber = employeeNumber,
                     Schedule = new Infrastructure.Persistence.Models.Schedule(),
                     TimeZone = TimeZoneInfo.Utc.Id // TODO: Get actual timezone from request user profile

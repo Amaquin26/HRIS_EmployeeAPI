@@ -14,6 +14,6 @@
 
         public int EmployeeStatusId { get; set; }
 
-        public DateTime HireDate { get; set; }
+        public DateTime HiredDate { get; set; }
     }
 }
