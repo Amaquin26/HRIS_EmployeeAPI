@@ -1,3 +1,4 @@
+using HRIS_Employee.API.External.BlobStorage;
 using HRIS_Employee.API.External.Graph;
 using HRIS_Employee.API.Middlewares;
 using HRIS_Employee.API.Repositories;
@@ -52,12 +53,12 @@ options =>
 builder.Services.AddAuthorization();
 
 builder.Services.Configure<AzureAdSettings>(builder.Configuration.GetSection("AzureAd"));
+builder.Services.Configure<AzureBlobStorageSettings>(builder.Configuration.GetSection("AzureBlobStorage"));
 builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddScoped<IEmployeeService, EmployeeService>();
 builder.Services.AddScoped<IEmployeeStatusRepository, EmployeeStatusRepository>();
 builder.Services.AddScoped<IEmployeeStatusService, EmployeeStatusService>();
 builder.Services.AddScoped<IAuthUserDetailsService, AuthUserDetailsService>();
-builder.Services.AddScoped<IGraphService, GraphService>();
 builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IScheduleRepository, ScheduleRepository>();
 builder.Services.AddScoped<IScheduleDayRepository, ScheduleDayRepository>();
@@ -65,6 +66,10 @@ builder.Services.AddScoped<IShiftRecordRepository, ShiftRecordRepository>();
 builder.Services.AddScoped<IShiftRecordService, ShiftRecordService>();
 builder.Services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+// Microsoft SDKs only services
+builder.Services.AddSingleton<IGraphService, GraphService>();
+builder.Services.AddSingleton<IBlobStorageService, BlobStorageService>();
 
 var app = builder.Build();
 
