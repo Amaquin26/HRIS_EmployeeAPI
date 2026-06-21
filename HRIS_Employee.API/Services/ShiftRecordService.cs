@@ -28,7 +28,7 @@ namespace HRIS_Employee.API.Services
 
 
             if (employee is null)
-                throw new InvalidOperationException("Employee not found.");
+                throw new InvalidOperationException("Employee not found."); // TODO: custom exception
 
             // block double clock-in
             var existingShift = await shiftRecordRepository.GetSingleAsync(
